@@ -34,17 +34,15 @@ public class Location {
         return dependency;
     }
 
-    // MAIN LOGIC
+    // OPTIMIZER LOGIC
     public static ArrayList<Location> setUpRoute(ArrayList<Location> unsortedJourney) throws NoLocationsGivenException {
         if (unsortedJourney == null) {
             throw new NoLocationsGivenException();
-        }
-        else {
-            if (Location.containsOnlyOne(unsortedJourney) || Location.locationsWithoutDependencies(unsortedJourney)) {
+        } else {
+            if (Location.containsOnlyOne(unsortedJourney) || Location.allLocationsWithoutDependencies(unsortedJourney)) {
                 return unsortedJourney;
-            }
-            else {
-                return null;
+            } else {
+                return Location.orderingLocations(unsortedJourney);
             }
         }
     }
@@ -53,12 +51,36 @@ public class Location {
         return listOfElements.size() == 1;
     }
 
-    public static boolean locationsWithoutDependencies(ArrayList<Location> listOfLocations) {
-        for (Location location: listOfLocations) {
-            if (!(location.getDependency() == null)) {
+    public boolean haveDependency() {
+        return !(this.getDependency() == null);
+    }
+
+    public static boolean allLocationsWithoutDependencies(ArrayList<Location> listOfLocations) {
+        for (Location location : listOfLocations) {
+            if (location.haveDependency()) {
                 return false;
             }
         }
         return true;
+    }
+
+    public static ArrayList<Location> orderingLocations(ArrayList<Location> unsortedJourney) {
+        sortedJourney = new ArrayList<Location>();
+        for (Location location : unsortedJourney) {
+            if (!location.haveDependency()) {
+                if (!location.alreadyInList()) {
+                    sortedJourney.add(location);
+                }
+            } else {
+                if (!location.getDependency().alreadyInList()) {
+                    sortedJourney.add(location.getDependency());
+                }
+            }
+        }
+        return sortedJourney;
+    }
+
+    public boolean alreadyInList() {
+        return sortedJourney.contains(this);
     }
 }
