@@ -5,9 +5,9 @@ import com.codecool.holiday_optimalizer.exception.NoLocationsGivenException;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 /**
  * Created by dorasztanko on 2017.03.20..
@@ -60,5 +60,24 @@ public class LocationTest {
     @Test(expected = NoLocationsGivenException.class)
     public void empty_list_of_locations_as_journey_throws_exception() throws Exception {
         Location.setUpRoute(unsortedLocations);
+    }
+
+    @Test
+    public void list_contains_one_element() throws Exception {
+        ArrayList<Integer> listOfElements = new ArrayList<Integer>(Arrays.asList(1));
+        assertTrue(Location.containsOnlyOne(listOfElements));
+    }
+
+    @Test
+    public void list_contains_more_than_one_element() throws Exception {
+        ArrayList<Integer> listOfElements = new ArrayList<Integer>(Arrays.asList(1, 2));
+        assertFalse(Location.containsOnlyOne(listOfElements));
+    }
+
+    @Test
+    public void one_input_location_returns_itself() throws Exception {
+        unsortedLocations = new ArrayList<Location>();
+        unsortedLocations.add(new Location("x"));
+        assertEquals(Location.setUpRoute(unsortedLocations), unsortedLocations);
     }
 }

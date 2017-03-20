@@ -36,7 +36,16 @@ public class Location {
             throw new NoLocationsGivenException();
         }
         else {
-            return unsortedJourney;
+            if (Location.containsOnlyOne(unsortedJourney)) {
+                return unsortedJourney;
+            }
+            else {
+                return null;
+            }
         }
+    }
+
+    public static boolean containsOnlyOne(ArrayList listOfElements) {
+        return listOfElements.size() == 1;
     }
 }
