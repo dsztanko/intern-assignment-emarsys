@@ -114,6 +114,6 @@ public class LocationTest {
         unsortedLocations.add(l2);
         unsortedLocations.add(l3);
         ArrayList<Location> sortedLocations = Location.setUpRoute(unsortedLocations);
-        assertEquals(sortedLocations.get(1), l3);
+        assertEquals(sortedLocations, new ArrayList<Location>(Arrays.asList(l1, l3, l2)));
     }
 }
