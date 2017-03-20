@@ -80,4 +80,13 @@ public class LocationTest {
         unsortedLocations.add(new Location("x"));
         assertEquals(Location.setUpRoute(unsortedLocations), unsortedLocations);
     }
+
+    @Test
+    public void locations_without_dependencies_returns_itself() throws Exception {
+        unsortedLocations = new ArrayList<Location>();
+        unsortedLocations.add(new Location("x"));
+        unsortedLocations.add(new Location("y"));
+        unsortedLocations.add(new Location("z"));
+        assertEquals(Location.setUpRoute(unsortedLocations), unsortedLocations);
+    }
 }
