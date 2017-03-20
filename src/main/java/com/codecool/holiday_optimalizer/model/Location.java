@@ -51,37 +51,48 @@ public class Location {
         return listOfElements.size() == 1;
     }
 
-    public boolean haveDependency() {
+    public boolean hasDependency() {
         return !(this.getDependency() == null);
     }
 
     public static boolean allLocationsWithoutDependencies(ArrayList<Location> listOfLocations) {
         for (Location location : listOfLocations) {
-            if (location.haveDependency()) {
+            if (location.hasDependency()) {
                 return false;
             }
         }
         return true;
     }
 
+    public boolean alreadyInList() {
+        return sortedJourney.contains(this);
+    }
+
+    public static void updateElement(Location location) {
+        sortedJourney.remove(location);
+        sortedJourney.add(location);
+    }
+
     public static ArrayList<Location> orderingLocations(ArrayList<Location> unsortedJourney) {
         sortedJourney = new ArrayList<Location>();
         for (Location location : unsortedJourney) {
-            if (!location.haveDependency()) {
+            if (!location.hasDependency()) {
                 if (!location.alreadyInList()) {
                     sortedJourney.add(location);
                 }
             } else {
                 if (!location.getDependency().alreadyInList()) {
                     sortedJourney.add(location.getDependency());
+                } else {
+                    Location.updateElement(location.getDependency());
+                }
+                if (location.alreadyInList()) {
+                    Location.updateElement(location);
+                } else {
                     sortedJourney.add(location);
                 }
             }
         }
         return sortedJourney;
-    }
-
-    public boolean alreadyInList() {
-        return sortedJourney.contains(this);
     }
 }
