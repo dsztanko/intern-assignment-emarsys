@@ -74,6 +74,7 @@ public class Location {
             } else {
                 if (!location.getDependency().alreadyInList()) {
                     sortedJourney.add(location.getDependency());
+                    sortedJourney.add(location);
                 }
             }
         }
