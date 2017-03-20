@@ -1,6 +1,9 @@
 package com.codecool.holiday_optimalizer.model;
 
 import com.codecool.holiday_optimalizer.exception.InvalidLocationNameException;
+import com.codecool.holiday_optimalizer.exception.NoLocationsGivenException;
+
+import java.util.ArrayList;
 
 /**
  * Created by dorasztanko on 2017.03.20..
@@ -26,5 +29,14 @@ public class Location {
 
     public Location getDependency() {
         return dependency;
+    }
+
+    public static ArrayList<Location> setUpRoute(ArrayList<Location> unsortedJourney) throws NoLocationsGivenException {
+        if (unsortedJourney == null) {
+            throw new NoLocationsGivenException();
+        }
+        else {
+            return unsortedJourney;
+        }
     }
 }

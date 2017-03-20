@@ -1,7 +1,10 @@
 package com.codecool.holiday_optimalizer.model;
 
 import com.codecool.holiday_optimalizer.exception.InvalidLocationNameException;
+import com.codecool.holiday_optimalizer.exception.NoLocationsGivenException;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -12,6 +15,7 @@ import static org.junit.Assert.assertNull;
 public class LocationTest {
     private Location l1;
     private Location l2;
+    private ArrayList<Location> unsortedLocations;
 
     @Test
     public void valid_name_initialization() throws Exception {
@@ -51,5 +55,10 @@ public class LocationTest {
     @Test (expected = InvalidLocationNameException.class)
     public void location_name_cannot_be_special_char() throws Exception {
         l1 = new Location("%");
+    }
+
+    @Test(expected = NoLocationsGivenException.class)
+    public void empty_list_of_locations_as_journey_throws_exception() throws Exception {
+        Location.setUpRoute(unsortedLocations);
     }
 }
