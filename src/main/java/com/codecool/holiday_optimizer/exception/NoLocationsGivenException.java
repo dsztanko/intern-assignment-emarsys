@@ -1,4 +1,4 @@
-package com.codecool.holiday_optimalizer.exception;
+package com.codecool.holiday_optimizer.exception;
 
 /**
  * Created by dorasztanko on 2017.03.20..
